@@ -7,6 +7,7 @@
 <meta name="description" content="Daichi Kashimoto のアプリ一覧とサポート。ぽこ貯（Poko-chō）ほか。">
 <meta name="theme-color" content="#8b5cf6">
 <link rel="canonical" href="https://daichi-kashimoto.github.io/">
+<link rel="icon" href="images/pokocho-icon2025.png" sizes="any">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -22,8 +23,9 @@
 <meta name="twitter:description" content="アプリ一覧とサポートへの入口。">
 <meta name="twitter:image" content="https://daichi-kashimoto.github.io/images/pokocho-icon2025.png">
 
-<!-- Fonts (任意) -->
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -38,7 +40,7 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.6
 a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
 .container{max-width:1040px;margin:0 auto;padding:24px}
-.header{position:sticky;top:0;background:rgba(255,255,255,.6);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.header{position:sticky;top:0;background:rgba(255,255,255,.6);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
 @media (prefers-color-scheme: dark){ .header{ background:rgba(11,16,32,.6);} }
 .nav{display:flex;gap:16px;align-items:center;justify-content:space-between}
 .brand{display:flex;gap:12px;align-items:center}
@@ -117,25 +119,24 @@ a:hover{text-decoration:underline}
       </div>
     </article>
 
-    <!-- 追加予定のアプリはカードをコピペして増やす -->
     <!-- Re:メモ -->
-<article class="card" role="listitem">
-  <img src="images/Rememo-icon2025.png" alt="Re:メモ アプリアイコン">
-  <div>
-    <h3>Re:メモ</h3>
-    <p>「見返してない期間」でメモを検索できるメモ帳。忘れてた！を防ぐ一工夫。</p>
-    <div class="row">
-      <span class="badge">メモ</span>
-      <span class="badge">生産性</span>
-    </div>
-    <div class="row" style="margin-top:10px">
-      <a class="btn primary" href="/rememo/">サポート・FAQ・プライバシー</a>
-      <!-- App Store 公開後に有効化：
-      <a class="btn" href="https://apps.apple.com/app/idXXXXXXXXX" target="_blank" rel="noopener">App Store</a>
-      -->
-    </div>
-  </div>
-</article>
+    <article class="card" role="listitem">
+      <img src="images/Rememo-icon2025.png" alt="Re:メモ アプリアイコン">
+      <div>
+        <h3>Re:メモ</h3>
+        <p>「見返してない期間」でメモを検索できるメモ帳。忘れてた！を防ぐ一工夫。</p>
+        <div class="row">
+          <span class="badge">メモ</span>
+          <span class="badge">生産性</span>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <a class="btn primary" href="/rememo/">サポート・FAQ・プライバシー</a>
+          <!-- App Store 公開後に有効化：
+          <a class="btn" href="https://apps.apple.com/app/idXXXXXXXXX" target="_blank" rel="noopener">App Store</a>
+          -->
+        </div>
+      </div>
+    </article>
   </div>
 
   <h2 class="section-title">広告について</h2>
