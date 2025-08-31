@@ -4,12 +4,19 @@
 <title>Daichi Kashimoto — Apps & Support</title>
 <meta name="description" content="Daichi Kashimoto のアプリ一覧とサポートリンク。ぽこ貯（Poko-chō）ほか。">
 <meta name="theme-color" content="#8b5cf6">
+
+<!-- OGP / Twitter -->
 <meta property="og:title" content="Daichi Kashimoto — Apps & Support">
 <meta property="og:description" content="アプリ一覧とサポートへの入口。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://daichi-kashimoto.github.io/">
-<meta property="og:image" content="https://daichi-kashimoto.github.io/og.png"><!-- あとで差し替え推奨 -->
+<meta property="og:image" content="https://daichi-kashimoto.github.io/images/pokocho-icon2025.png">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="canonical" href="https://daichi-kashimoto.github.io/">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/pokocho-icon2025.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/pokocho-icon2025.png">
+
 <style>
 :root{
   --bg:#ffffff; --fg:#111827; --muted:#6b7280; --card:#ffffff; --border:#e5e7eb;
@@ -37,12 +44,19 @@ a{color:var(--accent); text-decoration:none} a:hover{text-decoration:underline}
 .card{background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px; box-shadow:var(--shadow); transition:transform .12s ease, box-shadow .12s ease}
 .card:hover{transform:translateY(-2px)}
 .apphead{display:flex; align-items:center; gap:12px; margin-bottom:8px}
-.appicon{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; background:#eef2ff; color:#3730a3; font-weight:800}
+
+/* 画像アイコン用 */
+.appicon{width:40px; height:40px; border-radius:12px; display:block; object-fit:cover;}
+
+/*（任意）文字ベースの代替バッジが必要な時は .appglyph を使う */
+.appglyph{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; background:#eef2ff; color:#3730a3; font-weight:800}
+
 .badge{display:inline-block; padding:2px 8px; border-radius:999px; background:#eef2ff; color:#3730a3; font-size:12px; margin-left:8px}
 .footer{padding:36px 24px; color:var(--muted)}
 .small{font-size:14px; color:var(--muted)}
 hr{border:none; border-top:1px solid var(--border); margin:24px 0}
 </style>
+
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -71,7 +85,7 @@ hr{border:none; border-top:1px solid var(--border); margin:24px 0}
     <!-- ぽこ貯 -->
     <a class="card" href="https://daichi-kashimoto.github.io/pokocho/">
       <div class="apphead">
-        <div class="appicon">貯</div>
+        <img class="appicon" src="images/pokocho-icon2025.png" alt="ぽこ貯（Poko-chō）のアプリアイコン" width="40" height="40">
         <div>
           <div style="font-weight:800">ぽこ貯（Poko-chō）</div>
           <div class="small">サポート・FAQ・プライバシー</div>
@@ -80,10 +94,10 @@ hr{border:none; border-top:1px solid var(--border); margin:24px 0}
       <div class="small">バブルで楽しく節約・予算管理。</div>
     </a>
 
-    <!-- 追加アプリの例（あとで解禁） 
+    <!-- 追加アプリの例（あとで解禁）
     <a class="card" href="https://daichi-kashimoto.github.io/pointlog/">
       <div class="apphead">
-        <div class="appicon">点</div>
+        <div class="appglyph">点</div>
         <div>
           <div style="font-weight:800">PointLog</div>
           <div class="small">サポート・FAQ・プライバシー</div>
