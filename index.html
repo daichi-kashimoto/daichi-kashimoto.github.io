@@ -45,7 +45,18 @@
   }
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.65 "Noto Sans JP", system-ui, -apple-system, sans-serif}
+html,body{
+  margin:0;padding:0;color:var(--ink);
+  font:16px/1.65 "Noto Sans JP", system-ui, -apple-system, sans-serif
+}
+/* ほんのり世界観（控えめオーロラ） */
+body{
+  background:
+    radial-gradient(1100px 700px at 10% -10%, color-mix(in oklab, #0f1630 30%, transparent) 0%, transparent 60%),
+    radial-gradient(900px 500px at 105% 0%, color-mix(in oklab, #0b1020 30%, transparent) 0%, transparent 55%),
+    conic-gradient(from 220deg at 70% 0%, color-mix(in oklab,#8b5cf6 10%, transparent), color-mix(in oklab,#4f81ff 10%, transparent), color-mix(in oklab,#19d3ae 10%, transparent), color-mix(in oklab,#8b5cf6 10%, transparent)),
+    var(--bg);
+}
 a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
 .container{max-width:1040px;margin:0 auto;padding:24px}
@@ -64,12 +75,12 @@ a:hover{text-decoration:underline}
 .nav a{color:var(--muted)}
 .nav a:hover{color:var(--ink);text-decoration:none}
 
-/* Hero */
+/* Hero (Multi-App Spotlight) */
 .hero{
   display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;
-  padding:40px 0 8px;
+  padding:56px 0 8px;
 }
-.hero h2{font-size:32px;line-height:1.25;margin:0 0 10px}
+.hero h2{font-size:34px;line-height:1.2;margin:0 0 10px;letter-spacing:.2px}
 .hero p{margin:0;color:var(--muted)}
 .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
 .btn{
@@ -83,9 +94,44 @@ a:hover{text-decoration:underline}
 .device{
   border-radius:28px;border:1px solid var(--line);background:var(--panel);
   aspect-ratio:9/19.5;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
+  overflow:hidden;min-height:420px
 }
 .device img{width:86%;border-radius:20px;display:block}
+
+/* Spotlight tabs */
+.spotlight{margin-top:18px}
+.spotlight input{display:none}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 12px;border-radius:999px;cursor:pointer;
+  background:rgba(255,255,255,.6);
+  border:1px solid var(--line);color:var(--ink);font-weight:700;font-size:14px;
+  transition:transform .12s ease, background .2s ease;
+}
+@media (prefers-color-scheme: dark){
+  .tab{background:rgba(255,255,255,.06);border-color:color-mix(in oklab, var(--line) 70%, transparent);color:#dbe2ff}
+}
+.tab img{width:20px;height:20px;border-radius:6px}
+.tab:hover{transform:translateY(-1px)}
+#sp-gray:checked  ~ .tabs label[for="sp-gray"],
+#sp-poko:checked  ~ .tabs label[for="sp-poko"],
+#sp-rememo:checked~ .tabs label[for="sp-rememo"]{
+  background:linear-gradient(180deg,#a78bfa33,#8b5cf633);
+  box-shadow:0 8px 20px rgba(139,92,246,.25);
+}
+
+/* Panels */
+.panels{position:relative;margin-top:12px;min-height:96px}
+.panel{
+  position:absolute;inset:0;opacity:0;transform:translateY(6px);
+  transition:opacity .18s ease, transform .18s ease;
+  display:flex;flex-direction:column;gap:10px
+}
+.panel .desc{margin:0;color:var(--muted)}
+#sp-gray:checked  ~ .panels .p-gray,
+#sp-poko:checked  ~ .panels .p-poko,
+#sp-rememo:checked~ .panels .p-rememo{opacity:1;transform:translateY(0)}
 
 /* Section titles */
 .section-title{font-size:18px;margin:28px 0 12px}
@@ -95,7 +141,7 @@ a:hover{text-decoration:underline}
 .card{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
   padding:16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);
-  transition:transform .15s ease, box-shadow .2s ease;
+  transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease;
 }
 .card:hover{transform:translateY(-2px)}
 .card img{width:64px;height:64px;border-radius:14px;flex:0 0 auto}
@@ -144,20 +190,61 @@ a:hover{text-decoration:underline}
 </header>
 
 <main class="container">
-  <!-- Hero -->
+  <!-- Hero (Multi-App Spotlight) -->
   <section class="hero" aria-labelledby="tagline">
     <div>
-      <h2 id="tagline">個人開発の iOS アプリ</h2>
-      <p class="small">ミニマルな体験、気持ちいいUI、そしてちゃんと役に立つ。</p>
-      <div class="actions">
-        <a class="btn primary" href="/gray-world/">Gray World を見る</a>
-        <a class="btn" href="#apps">他のアプリ</a>
+      <h2 id="tagline">Small, Focused, Useful.</h2>
+      <p class="small">個人開発の iOS アプリを、静かに磨いています。</p>
+
+      <div class="spotlight">
+        <input type="radio" id="sp-gray"  name="spotlight" checked>
+        <input type="radio" id="sp-poko"  name="spotlight">
+        <input type="radio" id="sp-rememo" name="spotlight">
+
+        <div class="tabs">
+          <label class="tab" for="sp-gray">
+            <img src="images/grayworld-icon2025.png" alt="" width="24" height="24"> Gray World
+          </label>
+          <label class="tab" for="sp-poko">
+            <img src="images/pokocho-icon2025.png" alt="" width="24" height="24"> ぽこ貯
+          </label>
+          <label class="tab" for="sp-rememo">
+            <img src="images/Rememo-icon2025.png" alt="" width="24" height="24"> Re:メモ
+          </label>
+        </div>
+
+        <div class="panels">
+          <div class="panel p-gray">
+            <p class="desc">呼吸とタップで色が戻る、新感覚の瞑想。</p>
+            <div class="actions">
+              <a class="btn primary" href="/gray-world/">公式サイト</a>
+              <!-- <a class="btn" href="https://apps.apple.com/app/idXXXXXXXXX" target="_blank" rel="noopener">App Store</a> -->
+            </div>
+          </div>
+          <div class="panel p-poko">
+            <p class="desc">バブルで楽しく節約・予算管理。入力するほど賑やかに。</p>
+            <div class="actions">
+              <a class="btn primary" href="/pokocho/">サポート / FAQ</a>
+            </div>
+          </div>
+          <div class="panel p-rememo">
+            <p class="desc">「見返してない期間」で忘れたメモを再発見。</p>
+            <div class="actions">
+              <a class="btn primary" href="/rememo/">サポート / FAQ</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions" style="margin-top:16px">
+        <a class="btn" href="#apps">アプリ一覧へ</a>
+        <a class="btn" href="https://x.com/_Kashiwa_omochi" target="_blank" rel="noopener">X で最新情報</a>
       </div>
     </div>
+
     <div class="device" aria-hidden="true">
-      <!-- ヒーロー画像：任意。なければコメントのままでOK -->
-      <!-- 例: Gray World の縦長スクショ1枚 -->
-      <!-- <img src="images/grayworld-hero.png" alt=""> -->
+      <!-- 任意：代表スクショ（モザイクや1枚でも） -->
+      <!-- <img src="images/hero-mosaic.png" alt=""> -->
     </div>
   </section>
 
@@ -215,13 +302,18 @@ a:hover{text-decoration:underline}
       </div>
     </article>
   </div>
-
-  <!-- ※ トップの“広告について”は非表示に。app-ads.txt はフッターの小リンクでOK -->
 </main>
 
 <footer class="container footer">
   <div>© 2025 Daichi Kashimoto</div>
-  <div class="small">開発者向け: <a href="/app-ads.txt">app-ads.txt</a></div>
+  <div class="small" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+    <a class="btn sm" href="https://x.com/_Kashiwa_omochi" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px">
+      <!-- Xアイコン（SVG埋め込み）-->
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2H21l-6.5 7.43L22 22h-6.8l-4.3-5.6L5.9 22H3.1l7-7.98L2 2h6.9l4 5.33L18.244 2Zm-1.19 18h1.69L7.02 4H5.27l11.78 16Z"/></svg>
+      X で最新情報
+    </a>
+    <span>開発者向け: <a href="/app-ads.txt">app-ads.txt</a></span>
+  </div>
 </footer>
 </body>
 </html>
