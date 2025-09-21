@@ -6,6 +6,7 @@
 <title>Daichi Kashimoto — Apps & Support</title>
 <meta name="description" content="Daichi Kashimoto のアプリ一覧とサポート。Gray World（瞑想）、ぽこ貯（Poko-chō）、Re:メモほか。">
 <meta name="theme-color" content="#8b5cf6">
+<meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://daichi-kashimoto.github.io/">
 <link rel="icon" href="images/pokocho-icon2025.png" sizes="any">
 
@@ -14,7 +15,6 @@
 <meta property="og:title" content="Daichi Kashimoto — Apps & Support">
 <meta property="og:description" content="個人開発の iOS アプリ一覧とサポート。">
 <meta property="og:url" content="https://daichi-kashimoto.github.io/">
-<!-- 可能なら 1200x630 のOG画像を用意（なければ既存アイコンでもOK）-->
 <meta property="og:image" content="https://daichi-kashimoto.github.io/images/og-home.png">
 <meta property="og:site_name" content="Daichi Kashimoto">
 
@@ -31,16 +31,17 @@
 
 <style>
 :root{
-  --brand:#8b5cf6; --ink:#0f172a; --muted:#475569;
-  --bg:#ffffff; --bg-soft:#f8fafc; --panel: #f3f6fb;
+  --brand:#8b5cf6; --brand-weak:#a78bfa33;
+  --ink:#0f172a; --muted:#475569;
+  --bg:#ffffff; --bg-soft:#f8fafc; --panel:#f3f6fb;
   --card:#ffffff; --line:#e2e8f0;
   --radius:16px; --shadow:0 12px 28px rgba(15,23,42,.07);
 }
 @media (prefers-color-scheme: dark){
   :root{
     --ink:#e5e7eb; --muted:#94a3b8;
-    --bg:#0b1020; --bg-soft:#0e152b; --panel:#0e152b;
-    --card:#111831; --line:#1f2a44;
+    --bg:#0b1020; --bg-soft:#0e152b; --panel:#0e152bcc;
+    --card:#111831cc; --line:#1f2a44;
     --shadow:0 18px 40px rgba(0,0,0,.35);
   }
 }
@@ -61,11 +62,17 @@ a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
 .container{max-width:1040px;margin:0 auto;padding:24px}
 
+/* アクセシビリティ：フォーカス可視化 */
+a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
+  outline:2px solid color-mix(in oklab, var(--brand) 70%, #fff);
+  outline-offset:2px; border-radius:12px
+}
+
 /* Header */
 .header{
   position:sticky;top:0;z-index:10;
   background:color-mix(in oklab, var(--bg) 80%, transparent);
-  backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px) saturate(120%);
   border-bottom:1px solid var(--line);
 }
 .nav{display:flex;gap:16px;align-items:center;justify-content:space-between}
@@ -85,8 +92,10 @@ a:hover{text-decoration:underline}
 .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
 .btn{
   display:inline-block;padding:10px 16px;border-radius:12px;border:1px solid var(--line);
-  background:var(--bg-soft);color:var(--ink);font-weight:700;box-shadow:none
+  background:var(--bg-soft);color:var(--ink);font-weight:700;box-shadow:none;
+  transition:transform .12s ease, box-shadow .2s ease, border-color .2s ease;
 }
+.btn:hover{transform:translateY(-1px)}
 .btn.primary{
   background:linear-gradient(180deg, #a78bfa, #8b5cf6);
   border-color:#8b5cf6;color:#fff;box-shadow:var(--shadow)
@@ -98,6 +107,12 @@ a:hover{text-decoration:underline}
 }
 .device img{width:86%;border-radius:20px;display:block}
 
+/* ガラス調端末 */
+.device.glass{
+  border:1px solid color-mix(in oklab, var(--line) 70%, transparent);
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+}
+
 /* Spotlight tabs */
 .spotlight{margin-top:18px}
 .spotlight input{display:none}
@@ -107,7 +122,7 @@ a:hover{text-decoration:underline}
   padding:8px 12px;border-radius:999px;cursor:pointer;
   background:rgba(255,255,255,.6);
   border:1px solid var(--line);color:var(--ink);font-weight:700;font-size:14px;
-  transition:transform .12s ease, background .2s ease;
+  transition:transform .12s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
 @media (prefers-color-scheme: dark){
   .tab{background:rgba(255,255,255,.06);border-color:color-mix(in oklab, var(--line) 70%, transparent);color:#dbe2ff}
@@ -117,8 +132,9 @@ a:hover{text-decoration:underline}
 #sp-gray:checked  ~ .tabs label[for="sp-gray"],
 #sp-poko:checked  ~ .tabs label[for="sp-poko"],
 #sp-rememo:checked~ .tabs label[for="sp-rememo"]{
-  background:linear-gradient(180deg,#a78bfa33,#8b5cf633);
+  background:linear-gradient(180deg,var(--brand-weak),var(--brand-weak));
   box-shadow:0 8px 20px rgba(139,92,246,.25);
+  border-color:color-mix(in oklab, var(--brand) 40%, var(--line));
 }
 
 /* Panels */
@@ -143,7 +159,10 @@ a:hover{text-decoration:underline}
   padding:16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);
   transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.card:hover{transform:translateY(-2px)}
+.card:hover{
+  transform:translateY(-2px);
+  border-color:color-mix(in oklab, var(--brand) 35%, var(--line));
+}
 .card img{width:64px;height:64px;border-radius:14px;flex:0 0 auto}
 .card h3{margin:0 0 4px;font-size:16px}
 .card p{margin:0 0 10px;color:var(--muted);font-size:14px}
@@ -154,6 +173,11 @@ a:hover{text-decoration:underline}
 /* Footer */
 .footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
 .small{font-size:13px;color:var(--muted)}
+
+/* Motion preference */
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important}
+}
 
 /* Responsive */
 @media (max-width:900px){ .hero{grid-template-columns:1fr} }
@@ -181,7 +205,7 @@ a:hover{text-decoration:underline}
 <header class="header">
   <div class="container nav">
     <div class="brand"><span class="dot"></span><h1>Daichi Kashimoto — Apps & Support</h1></div>
-    <nav class="row">
+    <nav class="row" aria-label="Site">
       <a href="/gray-world/">Gray World</a>
       <a href="https://github.com/daichi-kashimoto" target="_blank" rel="noopener">GitHub</a>
       <a href="mailto:daichi.kasshi@icloud.com">Contact</a>
@@ -196,38 +220,38 @@ a:hover{text-decoration:underline}
       <h2 id="tagline">Small, Focused, Useful.</h2>
       <p class="small">個人開発の iOS アプリを、静かに磨いています。</p>
 
-      <div class="spotlight">
+      <div class="spotlight" aria-label="Apps spotlight">
         <input type="radio" id="sp-gray"  name="spotlight" checked>
         <input type="radio" id="sp-poko"  name="spotlight">
         <input type="radio" id="sp-rememo" name="spotlight">
 
-        <div class="tabs">
-          <label class="tab" for="sp-gray">
-            <img src="images/grayworld-icon2025.png" alt="" width="24" height="24"> Gray World
+        <div class="tabs" role="tablist" aria-label="Apps">
+          <label class="tab" for="sp-gray" role="tab" aria-controls="panel-gray" tabindex="0">
+            <img src="images/grayworld-icon2025.png" alt="" width="24" height="24" decoding="async"> Gray World
           </label>
-          <label class="tab" for="sp-poko">
-            <img src="images/pokocho-icon2025.png" alt="" width="24" height="24"> ぽこ貯
+          <label class="tab" for="sp-poko" role="tab" aria-controls="panel-poko" tabindex="0">
+            <img src="images/pokocho-icon2025.png" alt="" width="24" height="24" decoding="async"> ぽこ貯
           </label>
-          <label class="tab" for="sp-rememo">
-            <img src="images/Rememo-icon2025.png" alt="" width="24" height="24"> Re:メモ
+          <label class="tab" for="sp-rememo" role="tab" aria-controls="panel-rememo" tabindex="0">
+            <img src="images/Rememo-icon2025.png" alt="" width="24" height="24" decoding="async"> Re:メモ
           </label>
         </div>
 
         <div class="panels">
-          <div class="panel p-gray">
+          <div class="panel p-gray" id="panel-gray" role="tabpanel">
             <p class="desc">呼吸とタップで色が戻る、新感覚の瞑想。</p>
             <div class="actions">
               <a class="btn primary" href="/gray-world/">公式サイト</a>
               <!-- <a class="btn" href="https://apps.apple.com/app/idXXXXXXXXX" target="_blank" rel="noopener">App Store</a> -->
             </div>
           </div>
-          <div class="panel p-poko">
+          <div class="panel p-poko" id="panel-poko" role="tabpanel" aria-hidden="true">
             <p class="desc">バブルで楽しく節約・予算管理。入力するほど賑やかに。</p>
             <div class="actions">
               <a class="btn primary" href="/pokocho/">サポート / FAQ</a>
             </div>
           </div>
-          <div class="panel p-rememo">
+          <div class="panel p-rememo" id="panel-rememo" role="tabpanel" aria-hidden="true">
             <p class="desc">「見返してない期間」で忘れたメモを再発見。</p>
             <div class="actions">
               <a class="btn primary" href="/rememo/">サポート / FAQ</a>
@@ -238,13 +262,13 @@ a:hover{text-decoration:underline}
 
       <div class="actions" style="margin-top:16px">
         <a class="btn" href="#apps">アプリ一覧へ</a>
-        <a class="btn" href="https://x.com/_Kashiwa_omochi" target="_blank" rel="noopener">X で最新情報</a>
+        <a class="btn" href="https://x.com/_Kashiwa_omochi" target="_blank" rel="noopener" aria-label="X (Twitter) で最新情報">X で最新情報</a>
       </div>
     </div>
 
-    <div class="device" aria-hidden="true">
+    <div class="device glass" aria-hidden="true">
       <!-- 任意：代表スクショ（モザイクや1枚でも） -->
-      <!-- <img src="images/hero-mosaic.png" alt=""> -->
+      <!-- <img src="images/hero-mosaic.png" alt="" decoding="async" loading="lazy"> -->
     </div>
   </section>
 
@@ -253,7 +277,7 @@ a:hover{text-decoration:underline}
   <div class="grid" role="list">
     <!-- Gray World -->
     <article class="card" role="listitem">
-      <img src="images/grayworld-icon2025.png" alt="Gray World アプリアイコン" loading="lazy" width="64" height="64">
+      <img src="images/grayworld-icon2025.png" alt="Gray World アプリアイコン" loading="lazy" decoding="async" width="64" height="64">
       <div>
         <h3>Gray World</h3>
         <p>呼吸とタップで色が戻る新感覚の瞑想アプリ。</p>
@@ -272,7 +296,7 @@ a:hover{text-decoration:underline}
 
     <!-- Poko-cho -->
     <article class="card" role="listitem">
-      <img src="images/pokocho-icon2025.png" alt="ぽこ貯 アプリアイコン" loading="lazy" width="64" height="64">
+      <img src="images/pokocho-icon2025.png" alt="ぽこ貯 アプリアイコン" loading="lazy" decoding="async" width="64" height="64">
       <div>
         <h3>ぽこ貯（Poko-chō）</h3>
         <p>バブルで楽しく節約・予算管理。入力するほど画面が賑やかに。</p>
@@ -288,7 +312,7 @@ a:hover{text-decoration:underline}
 
     <!-- Re:メモ -->
     <article class="card" role="listitem">
-      <img src="images/Rememo-icon2025.png" alt="Re:メモ アプリアイコン" loading="lazy" width="64" height="64">
+      <img src="images/Rememo-icon2025.png" alt="Re:メモ アプリアイコン" loading="lazy" decoding="async" width="64" height="64">
       <div>
         <h3>Re:メモ</h3>
         <p>「見返してない期間」でメモを検索できるメモ帳。忘れてた！を防ぐ一工夫。</p>
