@@ -46,11 +46,9 @@
   }
 }
 *{box-sizing:border-box}
-html,body{
-  margin:0;padding:0;color:var(--ink);
-  font:16px/1.65 "Noto Sans JP", system-ui, -apple-system, sans-serif
-}
-/* ほんのり世界観（控えめオーロラ） */
+html,body{margin:0;padding:0;color:var(--ink);font:16px/1.65 "Noto Sans JP", system-ui, -apple-system, sans-serif}
+
+/* 背景：控えめオーロラ */
 body{
   background:
     radial-gradient(1100px 700px at 10% -10%, color-mix(in oklab, #0f1630 30%, transparent) 0%, transparent 60%),
@@ -62,8 +60,8 @@ a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
 .container{max-width:1040px;margin:0 auto;padding:24px}
 
-/* アクセシビリティ：フォーカス可視化 */
-a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
+/* フォーカス可視化 */
+a:focus-visible, .tab:focus-visible, .btn:focus-visible{
   outline:2px solid color-mix(in oklab, var(--brand) 70%, #fff);
   outline-offset:2px; border-radius:12px
 }
@@ -82,7 +80,7 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
 .nav a{color:var(--muted)}
 .nav a:hover{color:var(--ink);text-decoration:none}
 
-/* Hero (Multi-App Spotlight) */
+/* Hero */
 .hero{
   display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;
   padding:56px 0 8px;
@@ -91,7 +89,8 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
 .hero p{margin:0;color:var(--muted)}
 .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
 .btn{
-  display:inline-block;padding:10px 16px;border-radius:12px;border:1px solid var(--line);
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:12px;border:1px solid var(--line);
   background:var(--bg-soft);color:var(--ink);font-weight:700;box-shadow:none;
   transition:transform .12s ease, box-shadow .2s ease, border-color .2s ease;
 }
@@ -100,18 +99,20 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
   background:linear-gradient(180deg, #a78bfa, #8b5cf6);
   border-color:#8b5cf6;color:#fff;box-shadow:var(--shadow)
 }
+.btn[aria-disabled="true"]{opacity:.55; pointer-events:none;}
+.btn.store svg{flex:0 0 auto}
+
+/* デバイス枠 */
 .device{
   border-radius:28px;border:1px solid var(--line);background:var(--panel);
   aspect-ratio:9/19.5;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;
   overflow:hidden;min-height:420px
 }
-.device img{width:86%;border-radius:20px;display:block}
-
-/* ガラス調端末 */
 .device.glass{
   border:1px solid color-mix(in oklab, var(--line) 70%, transparent);
   background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
 }
+.device img{width:86%;border-radius:20px;display:block}
 
 /* Spotlight tabs */
 .spotlight{margin-top:18px}
@@ -138,7 +139,7 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
 }
 
 /* Panels */
-.panels{position:relative;margin-top:12px;min-height:96px}
+.panels{position:relative;margin-top:12px;min-height:110px}
 .panel{
   position:absolute;inset:0;opacity:0;transform:translateY(6px);
   transition:opacity .18s ease, transform .18s ease;
@@ -149,7 +150,7 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
 #sp-poko:checked  ~ .panels .p-poko,
 #sp-rememo:checked~ .panels .p-rememo{opacity:1;transform:translateY(0)}
 
-/* Section titles */
+/* Section */
 .section-title{font-size:18px;margin:28px 0 12px}
 
 /* Cards */
@@ -159,10 +160,7 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
   padding:16px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow);
   transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.card:hover{
-  transform:translateY(-2px);
-  border-color:color-mix(in oklab, var(--brand) 35%, var(--line));
-}
+.card:hover{ transform:translateY(-2px); border-color:color-mix(in oklab, var(--brand) 35%, var(--line)); }
 .card img{width:64px;height:64px;border-radius:14px;flex:0 0 auto}
 .card h3{margin:0 0 4px;font-size:16px}
 .card p{margin:0 0 10px;color:var(--muted);font-size:14px}
@@ -174,16 +172,14 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
 .footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
 .small{font-size:13px;color:var(--muted)}
 
-/* Motion preference */
-@media (prefers-reduced-motion: reduce){
-  *{transition:none !important}
-}
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){ *{transition:none !important} }
 
 /* Responsive */
 @media (max-width:900px){ .hero{grid-template-columns:1fr} }
 </style>
 
-<!-- JSON-LD (WebSite + Person) -->
+<!-- JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -214,12 +210,13 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
 </header>
 
 <main class="container">
-  <!-- Hero (Multi-App Spotlight) -->
+  <!-- Hero -->
   <section class="hero" aria-labelledby="tagline">
     <div>
       <h2 id="tagline">Small, Focused, Useful.</h2>
       <p class="small">個人開発の iOS アプリを、静かに磨いています。</p>
 
+      <!-- Multi-App Spotlight -->
       <div class="spotlight" aria-label="Apps spotlight">
         <input type="radio" id="sp-gray"  name="spotlight" checked>
         <input type="radio" id="sp-poko"  name="spotlight">
@@ -238,23 +235,40 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
         </div>
 
         <div class="panels">
+          <!-- Gray World -->
           <div class="panel p-gray" id="panel-gray" role="tabpanel">
             <p class="desc">呼吸とタップで色が戻る、新感覚の瞑想。</p>
             <div class="actions">
               <a class="btn primary" href="/gray-world/">公式サイト</a>
-              <!-- <a class="btn" href="https://apps.apple.com/app/idXXXXXXXXX" target="_blank" rel="noopener">App Store</a> -->
+              <a class="btn store" href="https://apps.apple.com/jp/app/%E7%81%B0%E8%89%B2%E3%81%AE%E4%B8%96%E7%95%8C/id6752535954" target="_blank" rel="noopener" aria-label="App Store (Gray World)">
+                <!-- Appleロゴ -->
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.365 1.43c0 1.14-.43 2.2-1.12 3.03-.78.97-2.06 1.73-3.34 1.63-.15-1.13.44-2.32 1.12-3.05.82-.88 2.25-1.57 3.34-1.61zM20.94 17.06c-.63 1.47-.94 2.12-1.77 3.43-1.15 1.76-2.77 3.94-4.78 3.97-1.78.03-2.24-1.17-4.17-1.16-1.92.02-2.44 1.19-4.22 1.17-2 0-3.54-2-4.7-3.75C-.17 18.2-.96 15.02.46 12.75c1-1.62 2.79-2.66 4.72-2.69 1.85-.03 3.6 1.25 4.18 1.25.58 0 2.6-1.55 4.37-1.32.75.03 2.86.3 4.22 2.27-3.9 2.2-3.28 7.99.99 8.8z"/></svg>
+                App Store
+              </a>
             </div>
           </div>
+
+          <!-- ぽこ貯 -->
           <div class="panel p-poko" id="panel-poko" role="tabpanel" aria-hidden="true">
             <p class="desc">バブルで楽しく節約・予算管理。入力するほど賑やかに。</p>
             <div class="actions">
               <a class="btn primary" href="/pokocho/">サポート / FAQ</a>
+              <a class="btn store" href="https://apps.apple.com/jp/app/%E3%81%BD%E3%81%93%E8%B2%AF/id6751740509" target="_blank" rel="noopener" aria-label="App Store (ぽこ貯)">
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.365 1.43c0 1.14-.43 2.2-1.12 3.03-.78.97-2.06 1.73-3.34 1.63-.15-1.13.44-2.32 1.12-3.05.82-.88 2.25-1.57 3.34-1.61zM20.94 17.06c-.63 1.47-.94 2.12-1.77 3.43-1.15 1.76-2.77 3.94-4.78 3.97-1.78.03-2.24-1.17-4.17-1.16-1.92.02-2.44 1.19-4.22 1.17-2 0-3.54-2-4.7-3.75C-.17 18.2-.96 15.02.46 12.75c1-1.62 2.79-2.66 4.72-2.69 1.85-.03 3.6 1.25 4.18 1.25.58 0 2.6-1.55 4.37-1.32.75.03 2.86.3 4.22 2.27-3.9 2.2-3.28 7.99.99 8.8z"/></svg>
+                App Store
+              </a>
             </div>
           </div>
+
+          <!-- Re:メモ -->
           <div class="panel p-rememo" id="panel-rememo" role="tabpanel" aria-hidden="true">
             <p class="desc">「見返してない期間」で忘れたメモを再発見。</p>
             <div class="actions">
               <a class="btn primary" href="/rememo/">サポート / FAQ</a>
+              <a class="btn store" href="https://apps.apple.com/jp/app/re-%E3%83%A1%E3%83%A2/id6751014318" target="_blank" rel="noopener" aria-label="App Store (Re:メモ)">
+                <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.365 1.43c0 1.14-.43 2.2-1.12 3.03-.78.97-2.06 1.73-3.34 1.63-.15-1.13.44-2.32 1.12-3.05.82-.88 2.25-1.57 3.34-1.61zM20.94 17.06c-.63 1.47-.94 2.12-1.77 3.43-1.15 1.76-2.77 3.94-4.78 3.97-1.78.03-2.24-1.17-4.17-1.16-1.92.02-2.44 1.19-4.22 1.17-2 0-3.54-2-4.7-3.75C-.17 18.2-.96 15.02.46 12.75c1-1.62 2.79-2.66 4.72-2.69 1.85-.03 3.6 1.25 4.18 1.25.58 0 2.6-1.55 4.37-1.32.75.03 2.86.3 4.22 2.27-3.9 2.2-3.28 7.99.99 8.8z"/></svg>
+                App Store
+              </a>
             </div>
           </div>
         </div>
@@ -267,7 +281,7 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
     </div>
 
     <div class="device glass" aria-hidden="true">
-      <!-- 任意：代表スクショ（モザイクや1枚でも） -->
+      <!-- 任意：代表スクショ -->
       <!-- <img src="images/hero-mosaic.png" alt="" decoding="async" loading="lazy"> -->
     </div>
   </section>
@@ -282,30 +296,33 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
         <h3>Gray World</h3>
         <p>呼吸とタップで色が戻る新感覚の瞑想アプリ。</p>
         <div class="row">
-          <span class="badge">瞑想</span>
-          <span class="badge">ヘルスケア</span>
+          <span class="badge">瞑想</span><span class="badge">ヘルスケア</span>
         </div>
         <div class="row" style="margin-top:10px">
           <a class="btn sm primary" href="/gray-world/">公式サイト / サポート</a>
-          <!-- 公開後に有効化：
-          <a class="btn sm" href="https://apps.apple.com/app/idXXXXXXXXX" target="_blank" rel="noopener">App Store</a>
-          -->
+          <a class="btn sm store" href="https://apps.apple.com/jp/app/%E7%81%B0%E8%89%B2%E3%81%AE%E4%B8%96%E7%95%8C/id6752535954" target="_blank" rel="noopener" aria-label="App Store (Gray World)">
+            <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.365 1.43c0 1.14-.43 2.2-1.12 3.03-.78.97-2.06 1.73-3.34 1.63-.15-1.13.44-2.32 1.12-3.05.82-.88 2.25-1.57 3.34-1.61zM20.94 17.06c-.63 1.47-.94 2.12-1.77 3.43-1.15 1.76-2.77 3.94-4.78 3.97-1.78.03-2.24-1.17-4.17-1.16-1.92.02-2.44 1.19-4.22 1.17-2 0-3.54-2-4.7-3.75C-.17 18.2-.96 15.02.46 12.75c1-1.62 2.79-2.66 4.72-2.69 1.85-.03 3.6 1.25 4.18 1.25.58 0 2.6-1.55 4.37-1.32.75.03 2.86.3 4.22 2.27-3.9 2.2-3.28 7.99.99 8.8z"/></svg>
+            App Store
+          </a>
         </div>
       </div>
     </article>
 
-    <!-- Poko-cho -->
+    <!-- ぽこ貯 -->
     <article class="card" role="listitem">
       <img src="images/pokocho-icon2025.png" alt="ぽこ貯 アプリアイコン" loading="lazy" decoding="async" width="64" height="64">
       <div>
         <h3>ぽこ貯（Poko-chō）</h3>
         <p>バブルで楽しく節約・予算管理。入力するほど画面が賑やかに。</p>
         <div class="row">
-          <span class="badge">家計簿</span>
-          <span class="badge">無料</span>
+          <span class="badge">家計簿</span><span class="badge">無料</span>
         </div>
         <div class="row" style="margin-top:10px">
           <a class="btn sm primary" href="/pokocho/">サポート・FAQ・プライバシー</a>
+          <a class="btn sm store" href="https://apps.apple.com/jp/app/%E3%81%BD%E3%81%93%E8%B2%AF/id6751740509" target="_blank" rel="noopener" aria-label="App Store (ぽこ貯)">
+            <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.365 1.43c0 1.14-.43 2.2-1.12 3.03-.78.97-2.06 1.73-3.34 1.63-.15-1.13.44-2.32 1.12-3.05.82-.88 2.25-1.57 3.34-1.61zM20.94 17.06c-.63 1.47-.94 2.12-1.77 3.43-1.15 1.76-2.77 3.94-4.78 3.97-1.78.03-2.24-1.17-4.17-1.16-1.92.02-2.44 1.19-4.22 1.17-2 0-3.54-2-4.7-3.75C-.17 18.2-.96 15.02.46 12.75c1-1.62 2.79-2.66 4.72-2.69 1.85-.03 3.6 1.25 4.18 1.25.58 0 2.6-1.55 4.37-1.32.75.03 2.86.3 4.22 2.27-3.9 2.2-3.28 7.99.99 8.8z"/></svg>
+            App Store
+          </a>
         </div>
       </div>
     </article>
@@ -317,11 +334,14 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
         <h3>Re:メモ</h3>
         <p>「見返してない期間」でメモを検索できるメモ帳。忘れてた！を防ぐ一工夫。</p>
         <div class="row">
-          <span class="badge">メモ</span>
-          <span class="badge">生産性</span>
+          <span class="badge">メモ</span><span class="badge">生産性</span>
         </div>
         <div class="row" style="margin-top:10px">
           <a class="btn sm primary" href="/rememo/">サポート・FAQ・プライバシー</a>
+          <a class="btn sm store" href="https://apps.apple.com/jp/app/re-%E3%83%A1%E3%83%A2/id6751014318" target="_blank" rel="noopener" aria-label="App Store (Re:メモ)">
+            <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.365 1.43c0 1.14-.43 2.2-1.12 3.03-.78.97-2.06 1.73-3.34 1.63-.15-1.13.44-2.32 1.12-3.05.82-.88 2.25-1.57 3.34-1.61zM20.94 17.06c-.63 1.47-.94 2.12-1.77 3.43-1.15 1.76-2.77 3.94-4.78 3.97-1.78.03-2.24-1.17-4.17-1.16-1.92.02-2.44 1.19-4.22 1.17-2 0-3.54-2-4.7-3.75C-.17 18.2-.96 15.02.46 12.75c1-1.62 2.79-2.66 4.72-2.69 1.85-.03 3.6 1.25 4.18 1.25.58 0 2.6-1.55 4.37-1.32.75.03 2.86.3 4.22 2.27-3.9 2.2-3.28 7.99.99 8.8z"/></svg>
+            App Store
+          </a>
         </div>
       </div>
     </article>
@@ -332,7 +352,7 @@ a:focus-visible, button:focus-visible, .tab:focus-visible, .btn:focus-visible{
   <div>© 2025 Daichi Kashimoto</div>
   <div class="small" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
     <a class="btn sm" href="https://x.com/_Kashiwa_omochi" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px">
-      <!-- Xアイコン（SVG埋め込み）-->
+      <!-- Xアイコン -->
       <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.244 2H21l-6.5 7.43L22 22h-6.8l-4.3-5.6L5.9 22H3.1l7-7.98L2 2h6.9l4 5.33L18.244 2Zm-1.19 18h1.69L7.02 4H5.27l11.78 16Z"/></svg>
       X で最新情報
     </a>
